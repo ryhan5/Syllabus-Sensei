@@ -1,6 +1,6 @@
 import { Lock, Play } from 'lucide-react'
 import React from 'react'
-
+7
 function CourseContentSection({courseInfo}) {
     const [activeIndex,setActiveIndex]=useState(0);
   return (

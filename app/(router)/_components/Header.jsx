@@ -1,8 +1,11 @@
+"use client"
 import { Button } from '@/components/ui/button'
+import { UserButton } from '@clerk/nextjs';
 import { BellDot, Search } from 'lucide-react'
 import React from 'react'
 
 function Header() {
+  const {user,isLoaded}=useUser();
   return (
     <div className='p-3 bg-white flex justify-between'>
         {/* Search bar */}
@@ -13,7 +16,10 @@ function Header() {
         {/* Get Started Button & bell Icon*/}
         <div className='flex items-center gap-4'>
             <BellDot className='text-gray-500'/>
-            <Button>Get Started</Button>
+            {isLoaded&&user
+            ?<UserButton/>
+            :
+            <Button>Get Started</Button>}
         </div>
     </div>
   )

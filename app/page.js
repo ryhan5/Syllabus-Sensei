@@ -1,25 +1,28 @@
-"use client"
+"use client";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { motion } from 'framer-motion';
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useEffect } from "react";
-import { useUser } from "@clerk/nextjs";
-
+import { UserButton, useUser } from "@clerk/nextjs";
 
 export default function Home() {
-  const router=useRouter();
-  const {user,isLoaded}=useUser();
-  useEffect(()=>{
-    if(user)
-    {
-      router.push('/dashboard')
+  const router = useRouter();
+  const { user, isLoaded } = useUser();
+
+  useEffect(() => {
+    if (isLoaded) {
+      if (user) {
+        router.push('/dashboard');
+      } else {
+        router.push('/courses');
+      }
     }
-    else{
-      isLoaded&&router.push('/courses')
-    }
-  },[user])
+  }, [user, isLoaded, router]);
+
   return (
-    <Button variant="outline">Button</Button>
+    <div>
+      <UserButton afterSwitchSessionUrl="/sign-in" />
+    </div>
   );
 }
